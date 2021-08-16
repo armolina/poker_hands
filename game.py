@@ -16,7 +16,7 @@ class Game():
             poker_hands = PokerHands(hand)
             player_hand.player_name = player
 
-            player_hand.higest_card = poker_hands.get_high_card()
+            player_hand.higest_card = poker_hands.get_higher_card()
             player_hand.pair = poker_hands.get_pair_in_hand()
             player_hand.pairs = poker_hands.get_pairs_in_hand()
             player_hand.tree = poker_hands.get_three_in_hand()

@@ -1,9 +1,12 @@
 from utils.poker_hands import PokerHands
+from utils.card_dealer import CardDealer
 from game import Game
 
 def test_given_split_in_hands():
     input = "Black: 2H 3D 5S 9C KD White: 2C 3H 4S 8C AH Yellow: 4H 2D 6S 9C 3D"
-    result = split_hands(input)
+    
+    card_dealer = CardDealer(5)
+    result = card_dealer.deal_hands(input)
     
     assert(result['Black:']==['2H', '3D', '5S', '9C', 'KD'])
     assert(result['White:']==['2C', '3H', '4S', '8C', 'AH'])
@@ -14,9 +17,13 @@ def test_get_higer_value_in_hand():
     input2 = ["4H", "2D", "6S", "9C", "3D"]
     input3 = ["JH", "2D", "6S", "9C" "3D"]
 
-    result1 = get_higher_value_in_hand(input1)
-    result2 = get_higher_value_in_hand(input2)
-    result3 = get_higher_value_in_hand(input3)
+    poker_hand1 = PokerHands(input1)
+    poker_hand2 = PokerHands(input2)
+    poker_hand3 = PokerHands(input3)
+
+    result1 = poker_hand1.get_higher_card()
+    result2 = poker_hand2.get_higher_card()
+    result3 = poker_hand3.get_higher_card()
     
     assert(result1 == 'AH')
     assert(result2 == '9C')
@@ -30,27 +37,17 @@ def test_get_highest_card_between_two():
     result = poker_hands.compare_two_cards(card1, card2)
     assert(result==1)
 
-def test_get_best_hand_beetween_players():
-    input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH Yellow: 4H 2D 6S 9C 3D"
-    game = Game(input)
-    result = game.resolve_hands()
-
-    assert(result=="AH")
-
 def test_get_a_pair_in_hand():
-    input = "2H 3D KS 9C KD"
-    poker_hands = PokerHands()
-    result = poker_hands.get_pairs_in_hand(input)
+    input = ["2H", "3D", "KS", "9C", "KD"]
+    poker_hands = PokerHands(input)
+    result = poker_hands.get_pair_in_hand()
     assert(result==["KS", "KD"])
 
 def test_get_two_pairs_in_hand():
-    input = "2H 2D KS 9C KD"
-    poker_hands = PokerHands()
-    result = poker_hands.get_pairs_in_hand(input)
-    assert(result==["KS", "KD"])
-
-
-
+    input = ["2H", "2D", "KS", "9C", "KD"]
+    poker_hands = PokerHands(input)
+    result = poker_hands.get_pairs_in_hand()
+    assert(result==[["2H", "2D"],['KS', 'KD']])
 
 # High Card: Hands which do not fit any higher category are ranked by the value of their highest card. If the highest cards have the same value, the hands are ranked by the next highest, and so on.
 # Pair: 2 of the 5 cards in the hand have the same value. Hands which both contain a pair are ranked by the value of the cards forming the pair. If these values are the same, the hands are ranked by the values of the cards not forming the pair, in decreasing order.

@@ -5,10 +5,10 @@ from vo.player_hand import PlayerHand
 class PokerHands():
     hand_hierarchy = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
-    def __init__(self, player_hand) -> None:
+    def __init__(self, player_hand = None) -> None:
         self.player_hand = player_hand
 
-    def get_high_card(self):
+    def get_higher_card(self):
         higher_value = 0
         highest_card = ""
 
@@ -112,6 +112,4 @@ class PokerHands():
         return None
 
     def check_hands(self, players_hands: List[PlayerHand]):
-        for player_hand in players_hands:
-            if player_hand.tr
-            pass
+        pass
